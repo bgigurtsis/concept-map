@@ -35,17 +35,26 @@
         overflow:auto;
         -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
     }
-
     #app-container{
-        position:relative;
-        overflow: hidden;
+        position: relative;
+
+        /* let clouds / ring shadows show, but never a horiz. scrollbar */
+        overflow: visible;
         touch-action: none;
-        width:var(--container-size);height:var(--container-size);
+
+        width:  var(--container-size);     /* same logical 1300 px box */
+        height: var(--container-size);
+
         display:flex;justify-content:center;align-items:center;
+
+        /* responsive shrink / enlarge driven by --base-scale above */
         transform: scale(var(--base-scale));
-        transition:transform .3s ease-in-out;
         transform-origin: center center;
+        transition: transform .25s ease-out;   /* smooth step‑down at breakpoints */
     }
+
+    /* never show a sideways scroll bar even if clouds reach past the edges */
+    body{ overflow-x: hidden; }
 
     .ring-visual{position:absolute;border:2px solid var(--border-color);border-radius:50%;pointer-events:none}
     #ring-visual-1{width:calc(var(--ring-1-radius)*2);height:calc(var(--ring-1-radius)*2)}
@@ -112,11 +121,12 @@
     }
 
     /* Responsive scaling for embed */
-    @media (max-width:1366px){ :root{ --base-scale:.90 } }  /* small laptops */
-    @media (max-width:1200px){ :root{ --base-scale:.85 } }
-    @media (max-width:1024px){ :root{ --base-scale:.75 } }  /* iPad Pro portrait */
-    @media (max-width:800px) { :root{ --base-scale:.65 } }  /* big phones   */
-    @media (max-width:600px) { :root{ --base-scale:.55 } }  /* small phones */
+    @media (max-width: 1280px){ :root{ --base-scale: .90 } }   /* 13‑inch laptop */
+    @media (max-width: 1100px){ :root{ --base-scale: .80 } }   /* small laptop   */
+    @media (max-width:  900px){ :root{ --base-scale: .70 } }   /* iPad Pro (1024) */
+    @media (max-width:  780px){ :root{ --base-scale: .60 } }   /* iPad Air (820)  */
+    @media (max-width:  640px){ :root{ --base-scale: .50 } }   /* big phones      */
+    @media (max-width:  500px){ :root{ --base-scale: .42 } }   /* small phones    */
 </style>
 </head>
 <body>
