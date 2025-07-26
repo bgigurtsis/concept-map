@@ -38,10 +38,13 @@
 
     #app-container{
         position:relative;
+        overflow: hidden;
+        touch-action: none;
         width:var(--container-size);height:var(--container-size);
         display:flex;justify-content:center;align-items:center;
         transform: scale(var(--base-scale));
         transition:transform .3s ease-in-out;
+        transform-origin: center center;
     }
 
     .ring-visual{position:absolute;border:2px solid var(--border-color);border-radius:50%;pointer-events:none}
@@ -109,11 +112,11 @@
     }
 
     /* Responsive scaling for embed */
-    @media (max-width:1400px){ :root{ --base-scale: .95 } }
-    @media (max-width:1200px){ :root{ --base-scale: .85 } }
-    @media (max-width:1000px){ :root{ --base-scale: .75 } }
-    @media (max-width:800px) { :root{ --base-scale: .65 } }
-    @media (max-width:600px) { :root{ --base-scale: .55 } }
+    @media (max-width:1366px){ :root{ --base-scale:.90 } }  /* small laptops */
+    @media (max-width:1200px){ :root{ --base-scale:.85 } }
+    @media (max-width:1024px){ :root{ --base-scale:.75 } }  /* iPad Pro portrait */
+    @media (max-width:800px) { :root{ --base-scale:.65 } }  /* big phones   */
+    @media (max-width:600px) { :root{ --base-scale:.55 } }  /* small phones */
 </style>
 </head>
 <body>
