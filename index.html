@@ -16,6 +16,7 @@
         --ring-1-radius:200px;
         --ring-2-radius:380px;
         --ring-3-radius:560px;
+        --base-scale: 1;
 
         --color-green:#28a745;
         --color-red:#dc3545;
@@ -25,10 +26,13 @@
 
     body{
         font-family:'Inter',sans-serif;
+        background: radial-gradient(circle at center,
+                #ffffff 0%,          /* bright centre */
+                #ffffff 50%,
+                #e3effc 100%);      /* soft gray edge */
         display:flex;justify-content:center;align-items:center;
         min-height:100vh;
-        background:var(--bg-color);color:var(--text-color);
-        overflow:hidden;
+        overflow:auto;
         -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
     }
 
@@ -36,11 +40,11 @@
         position:relative;
         width:var(--container-size);height:var(--container-size);
         display:flex;justify-content:center;align-items:center;
-        transform:scale(.8);
+        transform: scale(var(--base-scale));
         transition:transform .3s ease-in-out;
     }
 
-    .ring-visual{position:absolute;border:1px solid var(--border-color);border-radius:50%;pointer-events:none}
+    .ring-visual{position:absolute;border:2px solid var(--border-color);border-radius:50%;pointer-events:none}
     #ring-visual-1{width:calc(var(--ring-1-radius)*2);height:calc(var(--ring-1-radius)*2)}
     #ring-visual-2{width:calc(var(--ring-2-radius)*2);height:calc(var(--ring-2-radius)*2)}
     #ring-visual-3{width:calc(var(--ring-3-radius)*2);height:calc(var(--ring-3-radius)*2)}
@@ -101,20 +105,20 @@
     #info-box{
         position:absolute;top:20px;left:20px;background:rgba(255,255,255,.95);
         padding:15px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);
-        font-size:14px;max-width:200px;border:1px solid #eee;z-index:20;
+        font-size:14px;max-width:250px;border:1px solid #eee;z-index:20;
     }
 
     /* Responsive scaling for embed */
-    @media(max-width:1200px){#app-container{transform:scale(.7)}}
-    @media(max-width:1000px){#app-container{transform:scale(.6)}}
-    @media(max-width:800px){#app-container{transform:scale(.5)}}
-    @media(max-width:600px){#app-container{transform:scale(.4)}}
-    @media(max-width:400px){#app-container{transform:scale(.3)}}
+    @media (max-width:1400px){ :root{ --base-scale: .95 } }
+    @media (max-width:1200px){ :root{ --base-scale: .85 } }
+    @media (max-width:1000px){ :root{ --base-scale: .75 } }
+    @media (max-width:800px) { :root{ --base-scale: .65 } }
+    @media (max-width:600px) { :root{ --base-scale: .55 } }
 </style>
 </head>
 <body>
 
-<div id="info-box"><strong>Interactive Concept Map</strong><br>Click and drag any ring to rotate.</div>
+<div id="info-box"><strong>Tanztheater Concept Map</strong><br>Click and drag any ring to rotate.</div>
 
 <div id="app-container">
     <div id="core">Core</div>
@@ -161,7 +165,7 @@ const config={
             {text:'State,<br>Texture,<br>Gestures',angle:215,style:{color:'var(--color-blue)',fontSize:'14px',padding:'6px 12px'},itemRadius:290},
             {text:'Kinesphere',           angle:232,style:{color:'var(--color-blue)',fontSize:'14px',padding:'6px 12px'},itemRadius:290},
             {text:'Body<br>Awareness',    angle:249,style:{color:'var(--color-blue)',fontSize:'14px',padding:'6px 12px'},itemRadius:290},
-            {text:'Mapping<br>Theory',    angle:266,style:{color:'var(--color-blue)',fontSize:'14px',padding:'6px 12px'},itemRadius:290}
+            {text:'Mapping<br>Theory',    angle:268,style:{color:'var(--color-blue)',fontSize:'14px',padding:'6px 12px'},itemRadius:290}
         ]},
         {id:'3',radius:560,items:[
             {text:'Aesthetics',          angle:10,itemRadius:470,arrowOffset: -18},
@@ -214,7 +218,6 @@ function setupStationaryLabels(){
         if(l.type==='cloud'){
             label=document.createElement('div');
             label.className='cloud-label';
-            /* local image file (e.g. cloud.png) must sit next to this HTML */
             label.innerHTML=`
             <img src="https://raw.githubusercontent.com/bgigurtsis/tanztheater-concept-map/refs/heads/main/cloud_tt.png" alt="cloud backdrop">
             <div class="text">${l.text}</div>`;
